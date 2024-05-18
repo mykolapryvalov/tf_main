@@ -15,13 +15,13 @@ module "gke_cluster" {
 }
 
 module "flux_bootstrap" {
-  source            = "github.com/mykolapryvalov/tf-fluxcd-flux-bootstrap"
+  source            = "git::ssh://git@github.com/mykolapryvalov/tf-fluxcd-flux-bootstrap.git"
   github_repository = "${var.GITHUB_OWNER}/${var.FLUX_GITHUB_REPO}"
   private_key       = module.tls_private_key.private_key_pem
   config_path       = module.gke_cluster.kubeconfig
 }
 
 module "tls_private_key" {
-  source = "github.com/mykolapryvalov/tf-hashicorp-tls-keys"
+  source = "git::ssh://git@github.com/mykolapryvalov/tf-hashicorp-tls-keys.git"
   algorithm = "RSA"
 }
